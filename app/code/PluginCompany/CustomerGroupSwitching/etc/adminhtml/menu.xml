@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+  <menu>
+    <add id="PluginCompany_CustomerGroupSwitching::general_title"
+         module="PluginCompany_CustomerGroupSwitching"
+         parent="Magento_Customer::customer"
+         resource="Magento_Customer::customer"
+         sortOrder="0"
+         title="General Settings"
+    />
+    <update id="Magento_Customer::customer_manage"
+            parent="PluginCompany_CustomerGroupSwitching::general_title"
+    />
+    <update id="Magento_Customer::customer_online"
+            parent="PluginCompany_CustomerGroupSwitching::general_title"
+    />
+    <update id="Magento_Customer::customer_group"
+            parent="PluginCompany_CustomerGroupSwitching::general_title"
+    />
+    <add id="PluginCompany_CustomerGroupSwitching::groupswitch_menu_title"
+         module="PluginCompany_CustomerGroupSwitching"
+         parent="Magento_Customer::customer"
+         resource="PluginCompany_CustomerGroupSwitching::general"
+         sortOrder="10000"
+         title="Automatic Customer Group Switching"
+    />
+    <add id="PluginCompany_CustomerGroupSwitching::rules"
+         resource="PluginCompany_CustomerGroupSwitching::rules"
+         module="PluginCompany_CustomerGroupSwitching"
+         parent="PluginCompany_CustomerGroupSwitching::groupswitch_menu_title"
+         title="Manage Rules"
+         sortOrder="0"
+         action="groupswitch/rules/index"
+    />
+    <add id="PluginCompany_CustomerGroupSwitching::config"
+         resource="PluginCompany_CustomerGroupSwitching::system_config"
+         module="PluginCompany_CustomerGroupSwitching"
+         parent="PluginCompany_CustomerGroupSwitching::groupswitch_menu_title"
+         title="Configuration"
+         sortOrder="1"
+         action="adminhtml/system_config/edit/section/groupswitch"
+    />
+  </menu>
+</config>

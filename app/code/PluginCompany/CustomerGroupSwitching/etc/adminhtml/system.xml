@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+  <system>
+    <tab id="plugincompany" translate="label" sortOrder="20000" class="plugin-company-config-tab">
+      <label>Plugin Company</label>
+    </tab>
+    <section id="groupswitch" translate="label" sortOrder="10000" type="text" showInDefault="1">
+      <label>Automatic Group Switching</label>
+      <tab>plugincompany</tab>
+      <resource>PluginCompany_CustomerGroupSwitching::system_config</resource>
+      <group id="cronjob" translate="label" sortOrder="2" type="text" showInDefault="1">
+        <label>Cronjob Configuration</label>
+        <field id="cron_settings" sortOrder="10" type="text" showInDefault="1">
+          <label>Rule processing frequency</label>
+          <comment>Enter rule processing frequency in Crontab format. Eg. */5 1-3 * * * will execute Crobjob every 5 minutes between 1am - 4am.</comment>
+        </field>
+        <field id="max_customer" sortOrder="20" type="text" showInDefault="1">
+          <label>Maximum amount of customers</label>
+          <comment>Maximum amount of customers to be processed per Cron batch. The system might run into memory limit issues with too high amounts.</comment>
+          <validate>validate-number</validate>
+        </field>
+        <field id="only_once" sortOrder="30" type="select" showInDefault="1">
+          <label>Process rules only once daily</label>
+          <comment>If set to yes, all rules will be executed by Cron maximum once a day per customer.</comment>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+      </group>
+    </section>
+  </system>
+</config>

@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+<acl>
+  <resources>
+    <resource id="Magento_Backend::admin">
+      <resource id="Magento_Customer::customer">
+        <resource id="PluginCompany_CustomerGroupSwitching::general" sortOrder="100" title="Automatic Customer Group Switching">
+          <resource id="PluginCompany_CustomerGroupSwitching::rules" sortOrder="0" title="Manage Rules"/>
+          <resource id="PluginCompany_CustomerGroupSwitching::system_config" sortOrder="20" title="System Configuration"/>
+        </resource>
+      </resource>
+    </resource>
+  </resources>
+</acl>
+</config>

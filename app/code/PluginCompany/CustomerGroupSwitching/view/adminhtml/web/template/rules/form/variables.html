@@ -1,0 +1,49 @@
+<p>
+    The e-mail notification subject and content support the use of the variables listed below, as well as custom variables and customer attributes.
+</p>
+<table class="data-grid">
+    <thead>
+    <tr class="headings">
+        <th class="data-grid-th">Variable</th>
+        <th class="data-grid-th">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>{{var customer.getName()}}</td>
+        <td>Full customer name</td>
+    </tr>
+    <tr>
+        <td>{{var customer.firstname}}</td>
+        <td>Customer first name</td>
+    </tr>
+    <tr>
+        <td>{{var customer.lastname}}</td>
+        <td>Customer last name</td>
+    </tr>
+    <tr>
+        <td>{{var customer.email}}</td>
+        <td>Customer e-mail address</td>
+    </tr>
+    <tr>
+        <td>{{var customer.getId()}}</td>
+        <td>Customer ID</td>
+    </tr>
+    <tr>
+        <td>{{var from_group}}</td>
+        <td>Group name from which the customer is moved</td>
+    </tr>
+    <tr>
+        <td>{{var to_group}}</td>
+        <td>Group name to which the customer is moved</td>
+    </tr>
+    <tr>
+        <td>{{var store.getFrontendName()}}</td>
+        <td>Store name</td>
+    </tr>
+    <tr>
+        <td>{{var store.getBaseUrl()}}</td>
+        <td>Store URL</td>
+    </tr>
+    </tbody>
+</table>

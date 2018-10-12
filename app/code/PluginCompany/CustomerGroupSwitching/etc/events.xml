@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd" >
+  <event name="customer_save_before">
+    <observer name="groupswitch_customer_save_before"
+              instance="PluginCompany\CustomerGroupSwitching\Observer\CustomerSaveBefore"
+    />
+  </event>
+  <event name="sales_order_invoice_save_after">
+    <observer name="groupswitch_sales_order_invoice_save_after"
+              instance="PluginCompany\CustomerGroupSwitching\Observer\SalesOrderInvoiceSaveAfter"
+    />
+  </event>
+  <event name="customer_save_after">
+    <observer name="groupswitch_customer_save_after"
+              instance="PluginCompany\CustomerGroupSwitching\Observer\CustomerSaveAfter"
+    />
+  </event>
+  <event name="sales_order_save_after">
+    <observer name="groupswitch_sales_order_save_after"
+              instance="PluginCompany\CustomerGroupSwitching\Observer\SalesOrderSaveAfter"
+    />
+  </event>
+  <event name="customer_address_save_after">
+    <observer name="groupswitch_customer_address_save_after"
+              instance="PluginCompany\CustomerGroupSwitching\Observer\CustomerAddressSaveAfter"
+    />
+  </event>
+  <event name="customer_login">
+    <observer name="customer_login_groupswitch"
+              instance="PluginCompany\CustomerGroupSwitching\Observer\CustomerLogin"
+    />
+  </event>
+  <event name="newsletter_subscriber_save_after">
+    <observer name="groupswitch_newsletter_subscriber_save_after"
+              instance="PluginCompany\CustomerGroupSwitching\Observer\NewsletterSubscriberSaveAfter"
+    />
+  </event>
+  <event name="sales_order_save_before">
+    <observer name="groupswitch_sales_order_save_before"
+              instance="PluginCompany\CustomerGroupSwitching\Observer\SalesOrderSaveBefore"
+    />
+  </event>
+</config>

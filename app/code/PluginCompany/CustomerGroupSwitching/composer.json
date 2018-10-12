@@ -1,0 +1,21 @@
+{
+    "name": "plugincompany/customergroupswitching",
+    "description": "",
+    "require": {
+        "php": "~5.6.0|~7.0.2|~7.1",
+        "plugincompany/licensemanager": "~100.0"
+    },
+    "type": "magento2-module",
+    "version": "100.1.2",
+    "license": [
+        "Proprietary"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "PluginCompany\\CustomerGroupSwitching\\": ""
+        }
+    }
+}

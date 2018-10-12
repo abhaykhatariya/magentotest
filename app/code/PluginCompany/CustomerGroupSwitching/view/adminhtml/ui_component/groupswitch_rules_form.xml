@@ -1,0 +1,396 @@
+<?xml version="1.0" ?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">groupswitch_rules_form.groupswitch_rules_form_data_source</item>
+            <item name="deps" xsi:type="string">groupswitch_rules_form.groupswitch_rules_form_data_source</item>
+        </item>
+        <item name="label" translate="true" xsi:type="string">General Information</item>
+        <item name="config" xsi:type="array">
+            <item name="dataScope" xsi:type="string">data</item>
+            <item name="namespace" xsi:type="string">groupswitch_rules_form</item>
+        </item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+        <item name="buttons" xsi:type="array">
+            <item name="back" xsi:type="string">PluginCompany\CustomerGroupSwitching\Block\Adminhtml\Rules\Edit\BackButton</item>
+            <item name="delete" xsi:type="string">PluginCompany\CustomerGroupSwitching\Block\Adminhtml\Rules\Edit\DeleteButton</item>
+            <item name="save_and_execute" xsi:type="string">PluginCompany\CustomerGroupSwitching\Block\Adminhtml\Rules\Edit\SaveAndExecuteButton</item>
+            <item name="save" xsi:type="string">PluginCompany\CustomerGroupSwitching\Block\Adminhtml\Rules\Edit\SaveButton</item>
+            <item name="save_and_continue" xsi:type="string">PluginCompany\CustomerGroupSwitching\Block\Adminhtml\Rules\Edit\SaveAndContinueButton</item>
+        </item>
+    </argument>
+    <dataSource name="groupswitch_rules_form._data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">PluginCompany\CustomerGroupSwitching\Model\Rule\DataProvider\EditForm</argument>
+            <argument name="name" xsi:type="string">groupswitch_rules_form_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">rule_id</argument>
+            <argument name="requestFieldName" xsi:type="string">rule_id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="submit_url" path="*/*/save" xsi:type="url"/>
+                </item>
+            </argument>
+        </argument>
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+    </dataSource>
+    <fieldset name="rule_information">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Rule Information</item>
+            </item>
+        </argument>
+        <field name="name">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" translate="true" xsi:type="string">Rule Name</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="dataScope" xsi:type="string">name</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="is_active">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">PluginCompany\CustomerGroupSwitching\Model\Rule\Source\Status</item>
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" translate="true" xsi:type="string">Status</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="dataScope" xsi:type="string">is_active</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="storeviews">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Magento\Cms\Ui\Component\Listing\Column\Cms\Options</item>
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">int</item>
+                    <item name="label" xsi:type="string" translate="true">Store Views</item>
+                    <item name="formElement" xsi:type="string">multiselect</item>
+                    <item name="source" xsi:type="string">Form</item>
+                    <item name="dataScope" xsi:type="string">store_ids</item>
+                    <item name="default" xsi:type="string">0</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="from_date">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" translate="true" xsi:type="string">From Date</item>
+                    <item name="formElement" xsi:type="string">date</item>
+                    <item name="dataScope" xsi:type="string">from_date</item>
+                </item>
+            </argument>
+        </field>
+        <field name="to_date">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" translate="true" xsi:type="string">To Date</item>
+                    <item name="formElement" xsi:type="string">date</item>
+                    <item name="dataScope" xsi:type="string">to_date</item>
+                </item>
+            </argument>
+        </field>
+        <field name="sort_order">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" translate="true" xsi:type="string">Priority</item>
+                    <item name="notice" xsi:type="string" translate="true">Lower number will be executed first</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="dataScope" xsi:type="string">sort_order</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">false</item>
+                    </item>
+                    <item name="default" xsi:type="string">0</item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+    <fieldset name="conditions_fieldset">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Conditions</item>
+            </item>
+        </argument>
+        <container name="conditions_apply_to" >
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">10</item>
+                </item>
+            </argument>
+            <htmlContent name="html_content">
+                <argument name="block" xsi:type="object">PluginCompany\CustomerGroupSwitching\Block\Adminhtml\Rules\Edit\Tab\Conditions</argument>
+            </htmlContent>
+        </container>
+        <field name="order_status">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">PluginCompany\CustomerGroupSwitching\Model\Rule\Source\OrderStatus</item>
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" translate="true" xsi:type="string">Included Order Status(es)</item>
+                    <item name="formElement" xsi:type="string">multiselect</item>
+                    <item name="dataScope" xsi:type="string">order_status</item>
+                    <item name="default" xsi:type="string">processing,complete</item>
+                    <item name="additionalClasses" xsi:type="string">multiselect-wide form-element-border-top</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="invoice_status">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">PluginCompany\CustomerGroupSwitching\Model\Rule\Source\InvoiceStatus</item>
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" translate="true" xsi:type="string">Included Invoice Status(es)</item>
+                    <item name="formElement" xsi:type="string">multiselect</item>
+                    <item name="dataScope" xsi:type="string">invoice_status</item>
+                    <item name="default" xsi:type="string">2</item>
+                    <item name="additionalClasses" xsi:type="string">multiselect-wide</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+    <fieldset name="actions">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Rule Action</item>
+            </item>
+        </argument>
+        <field name="old_customergroup">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">PluginCompany\CustomerGroupSwitching\Model\Rule\Source\CustomerGroups</item>
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" translate="true" xsi:type="string">Original Customer Group</item>
+                    <item name="notice" xsi:type="string" translate="true">The group(s) from which the customer will be removed.</item>
+                    <item name="formElement" xsi:type="string">multiselect</item>
+                    <item name="dataScope" xsi:type="string">old_customergroup</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="new_customergroup">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">PluginCompany\CustomerGroupSwitching\Model\Rule\Source\CustomerGroups</item>
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" translate="true" xsi:type="string">New Customer Group</item>
+                    <item name="notice" xsi:type="string" translate="true">The group to which the customer will be moved. If multiple groups are selected, the new group will be chosen from the selection in a round-robin manner.</item>
+                    <item name="formElement" xsi:type="string">multiselect</item>
+                    <item name="dataScope" xsi:type="string">new_customergroup</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="events">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">PluginCompany\CustomerGroupSwitching\Model\Rule\Source\Events</item>
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" translate="true" xsi:type="string">Rule Processing Event(s)</item>
+                    <item name="notice" xsi:type="string" translate="true">The event(s) on which the rule should be executed.</item>
+                    <item name="formElement" xsi:type="string">multiselect</item>
+                    <item name="dataScope" xsi:type="string">events</item>
+                    <item name="default" xsi:type="string">customer_save,customer_login,order_save,invoice_save,recurring_profiles_save,address_save,newsletter_subscriber_save, customer_cron_job</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="stop_rules_processing">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Magento\Config\Model\Config\Source\Yesno</item>
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" translate="true" xsi:type="string">Stop Further Rules Processing</item>
+                    <item name="notice" xsi:type="string" translate="true">If multiple rules apply to the customer, stop further rule processing after this rule.</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="dataScope" xsi:type="string">stop_rules_processing</item>
+                    <item name="default" xsi:type="string">0</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="apply_new_group_to_order">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Magento\Config\Model\Config\Source\Yesno</item>
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" translate="true" xsi:type="string">Assign New Group at Checkout</item>
+                    <item name="notice" xsi:type="string" translate="true">Assign the new customer group to orders already during checkout instead of after placing an order.</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="dataScope" xsi:type="string">apply_new_group_to_order</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+    <fieldset name="customer_email_fieldset">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Customer Notification</item>
+            </item>
+        </argument>
+        <field name="customer_notification">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Magento\Config\Model\Config\Source\Yesno</item>
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" translate="true" xsi:type="string">Enable Customer Notification</item>
+                    <item name="notice" xsi:type="string" translate="true">Notify customers by e-mail when they are moved to a new group.</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="dataScope" xsi:type="string">customer_notification</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="customer_notification_subject">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" translate="true" xsi:type="string">Notification Subject</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="dataScope" xsi:type="string">customer_notification_subject</item>
+                    <item name="default" xsi:type="string" translate="true">Your account has been moved to the {{var to_group}} group</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="customer_notification_contents">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="default" xsi:type="string"><![CDATA[<p>Dear&nbsp;<span>{{var customer.getName()}},</span></p>
+<p><span>We'd like to notify you that your account has been moved from the&nbsp;{{var from_group}} group to the&nbsp;{{var to_group.customer_group_code}} group.</span></p>
+<p>Best regards,</p>
+<p>{{var store.getFrontendName()}}</p>]]></item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" translate="true" xsi:type="string">Notification Content</item>
+                    <item name="formElement" xsi:type="string">wysiwyg</item>
+                    <item name="component" xsi:type="string">PluginCompany_CustomerGroupSwitching/js/form/element/wysiwygfix</item>
+                    <item name="template" xsi:type="string">ui/form/field</item>
+                    <item name="wysiwyg" xsi:type="boolean">true</item>
+                    <item name="dataScope" xsi:type="string">customer_notification_contents</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">false</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+    <fieldset name="admin_email_fieldset">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Admin Notification</item>
+            </item>
+        </argument>
+        <field name="admin_notification">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Magento\Config\Model\Config\Source\Yesno</item>
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" translate="true" xsi:type="string">Enable Admin Notification</item>
+                    <item name="notice" xsi:type="string" translate="true">Notify admin by e-mail when customers are moved to a new group.</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="dataScope" xsi:type="string">admin_notification</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="admin_notification_email">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" translate="true" xsi:type="string">Admin E-mail Address</item>
+                    <item name="notice" xsi:type="string" translate="true">Leave empty to use the default store e-mail address.</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="dataScope" xsi:type="string">admin_notification_email</item>
+                </item>
+            </argument>
+        </field>
+        <field name="admin_notification_subject">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" translate="true" xsi:type="string">Notification Subject</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="dataScope" xsi:type="string">admin_notification_subject</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="default" xsi:type="string">Customer {{var customer.getName()}} moved to the {{var to_group.customer_group_code}} group</item>
+                </item>
+            </argument>
+        </field>
+        <field name="admin_notification_contents">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="default" xsi:type="string"><![CDATA[<p>Dear&nbsp;<span>{{var customer.getName()}},</span></p>
+<p><span>We'd like to notify you that your account has been moved from the&nbsp;{{var from_group}} group to the&nbsp;{{var to_group}} group.</span></p>
+<p>Best regards,</p>
+<p>{{var store.getFrontendName()}}</p>]]></item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" translate="true" xsi:type="string">Notification Content</item>
+                    <item name="formElement" xsi:type="string">wysiwyg</item>
+                    <item name="component" xsi:type="string">PluginCompany_CustomerGroupSwitching/js/form/element/wysiwygfix</item>
+                    <item name="template" xsi:type="string">ui/form/field</item>
+                    <item name="wysiwyg" xsi:type="boolean">true</item>
+                    <item name="dataScope" xsi:type="string">admin_notification_contents</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">false</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="notification_variables">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" translate="true" xsi:type="string">Notification Variables</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/form/element/abstract</item>
+                    <item name="elementTmpl" xsi:type="string">PluginCompany_CustomerGroupSwitching/rules/form/variables</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="additionalClasses" xsi:type="string">admin__field-wide</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">false</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+</form>

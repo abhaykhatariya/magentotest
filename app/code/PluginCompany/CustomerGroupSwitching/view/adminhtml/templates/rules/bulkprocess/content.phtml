@@ -1,0 +1,177 @@
+<?php
+/**
+ * Created by:  Milan Simek
+ * Company:     Plugin Company
+ *
+ * LICENSE: http://plugin.company/docs/magento-extensions/magento-extension-license-agreement
+ *
+ * YOU WILL ALSO FIND A PDF COPY OF THE LICENSE IN THE DOWNLOADED ZIP FILE
+ *
+ * FOR QUESTIONS AND SUPPORT
+ * PLEASE DON'T HESITATE TO CONTACT US AT:
+ *
+ * SUPPORT@PLUGIN.COMPANY
+ */
+?>
+<h2><?php echo __('Executing Customer Group Switching Rules');?></h2>
+<button onclick="window.history.back();" class="scalable back"><span><span><?php echo __('Go Back'); ?></span></span></button>
+<div class="grid">
+    <div style="padding:10px;width:50%;float:left;box-sizing:border-box">
+        <h3>Included Rules:</h3>
+        <table class="data-grid" >
+            <thead>
+            <tr class="headings">
+                <th class="data-grid-th">ID</th>
+                <th class="data-grid-th">Name</th>
+                <th class="data-grid-th">Priority</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach($this->getFilteredRuleCollection() as $rule){ ?>
+                <tr>
+                    <td><?php echo $rule->getId(); ?></td>
+                    <td><?php echo $rule->getName(); ?></td>
+                    <td><?php echo $rule->getSortOrder(); ?></td>
+                </tr>
+            <?php } ?>
+            </tbody>
+        </table>
+    </div>
+    <div style="padding:10px;width:50%;float:left;box-sizing:border-box">
+        <h3>Progress:</h3>
+        <table class="data-grid" >
+            <thead>
+            <tr class="headings">
+                <th class="data-grid-th">Customers Processed</th>
+                <th class="data-grid-th">Total Customers</th>
+                <th class="data-grid-th">Percent Complete</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td id="customers_processed">0</td>
+                    <td><?php echo $this->getTotalCustomerCount(); ?></td>
+                    <td><span id="percent">0.00</span>%</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div style="padding:10px;width:100%;box-sizing:border-box;float:left">
+        <h3>Rule execution results</h3>
+        <table class="data-grid" >
+            <thead>
+                <tr class="headings">
+                    <th style="width:80px" class="data-grid-th">ID</th>
+                    <th class="data-grid-th">Name</th>
+                    <th class="data-grid-th">From Group</th>
+                    <th class="data-grid-th">To Group</th>
+                    <th style="width:150px;" class="data-grid-th">Date / Time</th>
+                </tr>
+            </thead>
+            <tbody id="results">
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script type="text/javascript">
+require(["jquery", "prototype"], function($) {
+
+    var processed = 0;
+    var totalCustomers = <?php echo $this->getTotalCustomerCount(); ?>;
+    function executeBatch(offset){
+        var offset = offset;
+        new Ajax.Request("<?php echo $this->getUrl('*/*/applyRulesBulk'); ?>", {
+            method: 'POST',
+            parameters: {
+                offset:offset,
+                'ruleIds[]': <?php echo json_encode($this->getRuleIds()); ?>
+            },
+            onComplete: function(transport) {
+                var result = transport.responseJSON;
+                
+                //if no results, stop
+                if(result == "done"){
+                    console.log('done');
+                    return;
+                }
+                
+//                console.log(result);
+                addRows(result);
+                //update progress
+                updateProgress(10);
+                
+                //execute next batch
+                executeBatch(offset + 10);
+            }
+        });
+    }
+    function addRows(result)
+    {
+        $.each(result,function(k,v){
+            console.log(v);
+            var html = '<tr>';
+            html += '<td>' + v.customer_id + '</td>';
+            html += '<td>' + v.customer_name + '</td>';
+            html += '<td>' + v.from_group + '</td>';
+            html += '<td>' + v.to_group + '</td>';
+            html += '<td>' + v.date + '</td>';
+            html += '</tr>';
+            $(html).prependTo('#results');
+        });
+    }
+    function updateProgress(count){
+        processed = processed + count;
+        if(processed > totalCustomers){
+            processed = totalCustomers;
+        }
+        var percent = ((processed / totalCustomers) * 100).toFixed(2);
+        $('#customers_processed').text(processed);
+        $('#percent').text(percent);
+    }
+    
+    executeBatch(0);
+
+});
+</script>
+<style>
+    #results tr {
+        animation: fadein 1s;
+        -moz-animation: fadein 1s; /* Firefox */
+        -webkit-animation: fadein 1s; /* Safari and Chrome */
+        -o-animation: fadein 1s; /* Opera */
+    }
+    @keyframes fadein {
+        from {
+            opacity:0;
+        }
+        to {
+            opacity:1;
+        }
+    }
+    @-moz-keyframes fadein { /* Firefox */
+        from {
+            opacity:0;
+        }
+        to {
+            opacity:1;
+        }
+    }
+    @-webkit-keyframes fadein { /* Safari and Chrome */
+        from {
+            opacity:0;
+        }
+        to {
+            opacity:1;
+        }
+    }
+    @-o-keyframes fadein { /* Opera */
+        from {
+            opacity:0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+</style>
+

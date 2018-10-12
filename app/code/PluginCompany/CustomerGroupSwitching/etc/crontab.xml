@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+  <group id="default">
+    <job name="plugincompany_bulk_customer_group_switch"
+         instance="PluginCompany\CustomerGroupSwitching\Observer\Cron"
+         method="run">
+      <config_path>groupswitch/cronjob/cron_settings</config_path>
+    </job>
+  </group>
+</config>
