@@ -1,0 +1,144 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @package Amasty_Xsearch
+ */
+?>
+<?php
+/** @var \Amasty\Xsearch\Block\Search\Product $block */
+    $productCollection = $block->getLoadedProductCollection();
+    $helper = $this->helper('Magento\Catalog\Helper\Output');
+    $compareHelper = $this->helper('Magento\Catalog\Helper\Product\Compare');
+    $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
+?>
+
+<?php if ($productCollection->getSize()) : ?>
+    <div class="amsearch-products">
+        <p class="amasty-xsearch-block-header">
+            <?= __($block->getTitle())?>
+        </p>
+        <?php foreach ($productCollection as $product) : ?>
+            <?php $productImage = $block->getImage($product, 'amasty_xsearch_page_list');?>
+            <div class="amsearch-item product-item" data-click-url="<?= /* @escapeNotVerified */ $product->getProductUrl() ?>">
+                <div class="amasty-xsearch-autocomplete-image">
+                    <?= $productImage->toHtml(); ?>
+                </div>
+                <div class="amasty-xsearch-autocomplete-information">
+                    <div class="information-container">
+                        <div class="product details product-item-details">
+                            <strong class="product name product-item-name">
+                                <a class="product-item-link"
+                                   href="<?= /* @escapeNotVerified */ $product->getProductUrl() ?>"
+                                   title="<?= /* @escapeNotVerified */ $block->stripTags($block->getName($product)); ?>"
+                                >
+                                    <?= /* @escapeNotVerified */ $block->getName($product); ?>
+                                </a>
+                            </strong>
+
+                            <?php if ($block->showDescription($product)) :?>
+                                <div class="product description product-item-description">
+                                    <?= /* @escapeNotVerified */ $block->getDescription($product)?>
+                                </div>
+                            <?php endif; ?>
+
+                            <?php if ($block->getReviews()) : ?>
+                                <?= $block->getReviewsSummaryHtml($product, $templateType); ?>
+                            <?php endif; ?>
+
+                            <?= /* @escapeNotVerified */ $block->getProductPrice($product) ?>
+
+                            <?php if ($block->getAddToCart()) : ?>
+                                <div class="product actions product-item-actions" item-actions="1">
+                                    <div class="actions-primary">
+                                        <?php if ($product->isSaleable()) : ?>
+                                            <?php $post = $block->getAddToCartPostParams($product); ?>
+                                            <form id="<?= 'amasty-xsearch-product-' . $product->getId();?>"
+                                                  data-role="tocart-form"
+                                                  action="<?= /* @escapeNotVerified */ $post['action']; ?>"
+                                                  method="post" class="amasty-xsearch-form"
+                                            >
+                                                <input type="hidden" name="product"
+                                                       value="<?= /* @escapeNotVerified */ $post['data']['product']; ?>">
+                                                <?php if ($block->isRedirectToCartEnabled()) : ?>
+                                                    <input type="hidden" name="return_url"
+                                                           value="<?= /* @escapeNotVerified */ $post['data']['return_url']; ?>">
+                                                <?php endif; ?>
+                                                <input type="hidden"
+                                                       name="<?= $block->getUlrEncodedParam(); ?>"
+                                                       value="<?= $post['data'][$block->getUlrEncodedParam()]; ?>">
+                                                <input name="form_key"
+                                                       type="hidden"
+                                                       value="<?= /* @escapeNotVerified */ $block->getFormKey() ?>"/>
+                                                <button type="submit"
+                                                        title="<?= $block->escapeHtml(__('Add to Cart')); ?>"
+                                                        class="action tocart primary">
+                                                    <span><?= /* @escapeNotVerified */ __('Add to Cart') ?></span>
+                                                </button>
+                                            </form>
+                                        <?php else : ?>
+                                            <?php if ($product->getIsSalable()) : ?>
+                                                <div class="stock available">
+                                                    <span><?=/* @escapeNotVerified */ __('In stock') ?></span>
+                                                </div>
+                                            <?php else : ?>
+                                                <div class="stock unavailable">
+                                                    <span><?= /* @escapeNotVerified */ __('Out of stock') ?></span>
+                                                </div>
+                                            <?php endif; ?>
+                                        <?php endif; ?>
+                                    </div>
+
+                                    <div data-role="add-to-links" class="actions-secondary">
+                                        <?php if ($this->helper('Magento\Wishlist\Helper\Data')->isAllow()) : ?>
+                                            <a href="#"
+                                               class="action towishlist"
+                                               title="<?= $block->escapeHtml(__('Add to Wish List')); ?>"
+                                               aria-label="<?= $block->escapeHtml(__('Add to Wish List')); ?>"
+                                               data-post='<?= $block->getAddToWishlistParams($product); ?>'
+                                               data-action="add-to-wishlist"
+                                               role="button">
+                                                <span><?= /* @escapeNotVerified */ __('Add to Wish List') ?></span>
+                                            </a>
+                                        <?php endif; ?>
+
+                                        <a href="#"
+                                           class="action tocompare"
+                                           title="<?= $block->escapeHtml(__('Add to Compare')); ?>"
+                                           aria-label="<?= $block->escapeHtml(__('Add to Compare')); ?>"
+                                           data-post='<?= $compareHelper->getPostDataParams($product); ?>'
+                                           role="button">
+                                            <span><?= /* @escapeNotVerified */ __('Add to Compare') ?></span>
+                                        </a>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php endforeach; ?>
+        <?php $size = (int)$productCollection->getSize(); ?>
+        <?php if ($size > $block->getLimit()) : ?>
+            <div class="amasty-more-results">
+                <a href="<?= /* @escapeNotVerified */ $block->getResultUrl() ?>"
+                   title="<?= __('More products')?>">
+                    <?= __('More products') ?>
+                    <span> (<?= $size ?>)</span>
+                </a>
+            </div>
+        <?php endif; ?>
+    </div>
+
+    <script>
+        require([
+            'jquery',
+            'mage/mage',
+            'Magento_Catalog/js/catalog-add-to-cart'
+        ], function ($) {
+            'use strict';
+            $('.amasty-xsearch-form').catalogAddToCart({});
+        });
+    </script>
+<?php endif; ?>
+

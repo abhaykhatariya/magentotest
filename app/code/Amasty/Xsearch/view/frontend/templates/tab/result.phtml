@@ -1,0 +1,39 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @package Amasty_Xsearch
+ */
+?>
+<?php
+    /** @var \Amasty\Xsearch\Block\Search\AbstractSearch $block */
+    $collection = $block->getLoadedSearchCollection();
+?>
+<?php if ($collection->getSize()) : ?>
+    <?php foreach ($collection as $item) : ?>
+        <div class="amsearch-item"
+             data-search-block-type="<?= /* @escapeNotVerified */ $block->getBlockType();?>">
+            <?php if ($block->getIsCategoryBlock()) : ?>
+                <?= $block->renderFullCategoryPath($item);?>
+            <?php else : ?>
+                <a href="<?= /* @escapeNotVerified */ $block->getSearchUrl($item) ?>"
+                   title="<?= /* @escapeNotVerified */ $block->stripTags($block->getItemTitle($item)); ?>"
+                   class="item-name" >
+                    <?= /* @escapeNotVerified */ $block->stripTags($block->getItemTitle($item)); ?>
+                </a>
+                <span class="amasty-xsearch-num-results"><?= $item->getNumResults() ?></span>
+            <?php endif; ?>
+            <?php if ($block->showDescription($item)) :?>
+                <div class="item-description">
+                    <?= /* @escapeNotVerified */ $block->getDescription($item)?>
+                </div>
+            <?php endif; ?>
+        </div>
+    <?php endforeach;?>
+<?php else : ?>
+    <div class="message notice">
+        <div>
+            <?= /* @escapeNotVerified */ __('Your search returned no results.') ?>
+        </div>
+    </div>
+<?php endif; ?>
